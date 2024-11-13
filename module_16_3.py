@@ -28,8 +28,11 @@ async def update_user(user_id: str, username: str=Path(min_length=3, max_length=
 
 @app.delete('/user/{user_id}')
 async def delete_user(user_id: str):
-    users.pop(user_id)
-    return f'The user {user_id} was deleted.'
+    if user_id in users:
+        users.pop(user_id)
+        return f'The user {user_id} was deleted.'
+    else:
+        return f'The user {user_id} not found, try another ID'
 
 
 
